@@ -8,6 +8,7 @@ function InitSpryLive2dConfig() {
     showMenu: true,
     modelCdnPath: null,
     modelApiPath: 'http://localhost:8181/',
+    publicPath: './',
     tipsStyle: {
       mobile: {
         top: 0,
@@ -233,7 +234,8 @@ function InitSpryLive2dConfig() {
       clickTips,
       mouseoverTips,
       modelApiPath,
-      modelCdnPath
+      modelCdnPath,
+      publicPath
     } = this.spryLive2dConfig
 
     this.spryLive2dConfig.useModelCdn = !!modelCdnPath
@@ -325,6 +327,11 @@ function InitSpryLive2dConfig() {
     if (!modelApiPath.endsWith('/')) {
       this.spryLive2dConfig.modelApiPath += '/'
     }
+
+    if(!publicPath.endsWith('/')){
+      this.spryLive2dConfig.publicPath +='/'
+    }
+    
   }
 
   // 加载其他相关的json配置文件，并初始化提示语
@@ -477,12 +484,12 @@ const InitLive2d = new InitSpryLive2dConfig()
 
 // 程序入口： 加载所有静态资源的依赖，加载完成后开始渲染
 Promise.all([
-  InitLive2d.loadExternalResource('../library/live2d.min.js', 'js'),
-  InitLive2d.loadExternalResource('../src/loader-dom.js', 'js'),
-  InitLive2d.loadExternalResource('../src/loader-model.js', 'js'),
-  InitLive2d.loadExternalResource('../src/live2d.css', 'css'),
+  InitLive2d.loadExternalResource(`${this.spryLive2dConfig.publicPath}library/live2d.min.js', 'js`),
+  InitLive2d.loadExternalResource(`${this.spryLive2dConfig.publicPath}src/loader-dom.js`, 'js'),
+  InitLive2d.loadExternalResource(`${this.spryLive2dConfig.publicPath}src/loader-model.js`, 'js'),
+  InitLive2d.loadExternalResource(`${this.spryLive2dConfig.publicPath}src/live2d.css`, 'css'),
   InitLive2d.loadExternalResource(
-    '../library/font-awesome/css/font-awesome.css',
+    `${this.spryLive2dConfig.publicPath}library/font-awesome/css/font-awesome.css`,
     'css'
   )
 ]).then(async () => {
