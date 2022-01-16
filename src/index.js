@@ -354,7 +354,9 @@ function InitSpryLive2dConfig() {
       })
     }
 
-    const tipsData = await (await fetch(`${$live2dPublicPath}live2d-tips.json`)).json()
+    const tipsData = await (
+      await fetch(`${$live2dPublicPath}live2d-tips.json`)
+    ).json()
 
     // 定义欢迎提示
     this.messageTipConfig.welcomeTips.message = this.handleWelcomeMessage()
@@ -477,16 +479,26 @@ function InitSpryLive2dConfig() {
 // 创建初始化实例
 const InitLive2d = new InitSpryLive2dConfig()
 
-let $live2dPublicPath = 'https://spry-live2d.tj520.top/'
+let $live2dPublicPath
 
 // 将设置配置的方法暴露给全局
 function live2dSetConfig(config = {}) {
-  console.log(config)
+  if (config.publicPath) {
+    $live2dPublicPath = config.publicPath
+      ? config.publicPath
+      : 'https://spry-live2d.tj520.top/'
+
+    if (!$live2dPublicPath.endsWith('/')) {
+      $live2dPublicPath += '/'
+    }
+  }
   InitLive2d.setConfig(config)
 }
 
 setTimeout(() => {
-  // 程序入口： 加载所有静态资源的依赖，加载完成后开始渲染
+  // 程序入口，为了兼容静态资源路径可设置，所以延时10ms调用，保证set方法在加载资源之前被调用
+  // 加载所有静态资源的依赖，加载完成后开始渲染
+
   Promise.all([
     InitLive2d.loadExternalResource(
       `${$live2dPublicPath}/library/live2d.min.js`,
