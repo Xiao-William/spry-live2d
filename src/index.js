@@ -244,11 +244,9 @@ function InitSpryLive2dConfig() {
     // 处理自定义提示的参数
     if (!Array.isArray(clickTips)) {
       this.spryLive2dConfig.clickTips = []
-      console.warn(`[spry-live2d]:clickTips必须为Array类型`)
     }
     if (!Array.isArray(mouseoverTips)) {
       this.spryLive2dConfig.mouseoverTips = []
-      console.warn(`[spry-live2d]:mouseoverTips必须为Array类型`)
     }
 
     if (
@@ -270,7 +268,6 @@ function InitSpryLive2dConfig() {
           text: []
         }
       }
-      console.warn(`[spry-live2d]:basicTips必须为object类型，且属性不可为空`)
     }
 
     Object.keys(basicTips).forEach(key => {
@@ -279,7 +276,6 @@ function InitSpryLive2dConfig() {
           cover: false,
           text: []
         }
-        console.warn(`[spry-live2d]:basicTips的${key}属性必须为object类型`)
       }
 
       if (!basicTips[key].text || !Array.isArray(basicTips[key].text)) {
@@ -287,7 +283,6 @@ function InitSpryLive2dConfig() {
           cover: false,
           text: []
         }
-        console.warn('[spry-live2d]:basicTips的text属性必须为纯字符串的数组')
       }
     })
 
@@ -344,7 +339,6 @@ function InitSpryLive2dConfig() {
         this.spryLive2dConfig.modelList.models.length
     } else {
       await (await fetch(`${modelApiPath}model/list`)).json().then(res => {
-        console.log(res)
         if (res.code === 200) {
           this.spryLive2dConfig.modelCount = res.data.modelCount
           this.messageTipConfig.newModelTips.message =
@@ -412,7 +406,6 @@ function InitSpryLive2dConfig() {
 
   // 定义异步加载资源的方法
   this.loadExternalResource = function (url, type) {
-    console.log('loadExternalResource')
     return new Promise((resolve, reject) => {
       let tag
       if (type === 'css') {
@@ -501,27 +494,26 @@ setTimeout(() => {
 
   Promise.all([
     InitLive2d.loadExternalResource(
-      `${$live2dPublicPath}/library/live2d.min.js`,
+      `${$live2dPublicPath}library/live2d.min.js`,
       'js'
     ),
     InitLive2d.loadExternalResource(
-      `${$live2dPublicPath}/src/loader-dom.js`,
+      `${$live2dPublicPath}src/loader-dom.js`,
       'js'
     ),
     InitLive2d.loadExternalResource(
-      `${$live2dPublicPath}/src/loader-model.js`,
+      `${$live2dPublicPath}src/loader-model.js`,
       'js'
     ),
     InitLive2d.loadExternalResource(
-      `${$live2dPublicPath}/src/live2d.css`,
+      `${$live2dPublicPath}src/live2d.css`,
       'css'
     ),
     InitLive2d.loadExternalResource(
-      `${$live2dPublicPath}/library/font-awesome/css/font-awesome.css`,
+      `${$live2dPublicPath}library/font-awesome/css/font-awesome.css`,
       'css'
     )
   ]).then(async () => {
-    console.log(live2dSetConfig.prototype.isSetting)
     // 清理session
     InitLive2d.clearSessionStorage()
 
