@@ -354,7 +354,7 @@ function InitSpryLive2dConfig() {
       })
     }
 
-    const tipsData = await (await fetch('./live2d-tips.json')).json()
+    const tipsData = await (await fetch(`${$live2dPublicPath}live2d-tips.json`)).json()
 
     // 定义欢迎提示
     this.messageTipConfig.welcomeTips.message = this.handleWelcomeMessage()
