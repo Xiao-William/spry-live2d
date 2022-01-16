@@ -48,7 +48,6 @@ function RenderSpryLive2dDom() {
   // 选择其他模型
   this.handleReloadingOtherModel = function () {
     RenderLive2dModel.selectionNextModel()
-    
   }
 
   // 选择其他皮肤
@@ -68,10 +67,20 @@ function RenderSpryLive2dDom() {
     this.switchLive2dShowOrHidden(true)
   }
 
+  this.handleClickAbout = function () {
+    console.log('123123')
+    window.open('https://github.com/mihu915/spry-live2d')
+  }
+
   // 注册事件
   this.registerAllEvent = function () {
-    const { live2d_toggle_el, times_el, user_circle_el, street_view_el } =
-      this.spryLive2dElement
+    const {
+      live2d_toggle_el,
+      times_el,
+      user_circle_el,
+      street_view_el,
+      info_circle_el
+    } = this.spryLive2dElement
     // 开启监听window窗口变化
     window.addEventListener('mouseover', e => this.handleMouseoverOfTips(e))
     window.addEventListener('click', e => this.handleClickOfTips(e))
@@ -90,6 +99,7 @@ function RenderSpryLive2dDom() {
     street_view_el.addEventListener('click', e =>
       this.handleReloadingOtherTextures(e)
     )
+    info_circle_el.addEventListener('click', e => this.handleClickAbout())
   }
 
   // 开启定时器
