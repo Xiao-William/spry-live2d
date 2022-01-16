@@ -7,7 +7,7 @@ function InitSpryLive2dConfig() {
     showLive2d: true,
     showMenu: true,
     modelCdnPath: null,
-    modelApiPath: 'http://localhost:8181/',
+    modelApiPath: 'https://spry-live2d-api.tj520.top/',
     tipsStyle: {
       mobile: {
         top: 0,
