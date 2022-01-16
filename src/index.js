@@ -477,7 +477,7 @@ function InitSpryLive2dConfig() {
 // 创建初始化实例
 const InitLive2d = new InitSpryLive2dConfig()
 
-let $live2dPublicPath = 'https://spry-live2d.tj520.top'
+let $live2dPublicPath = 'https://spry-live2d.tj520.top/'
 
 // 将设置配置的方法暴露给全局
 function live2dSetConfig(config = {}) {
