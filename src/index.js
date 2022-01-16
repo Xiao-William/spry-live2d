@@ -476,40 +476,43 @@ function InitSpryLive2dConfig() {
 // 创建初始化实例
 const InitLive2d = new InitSpryLive2dConfig()
 
-// 程序入口： 加载所有静态资源的依赖，加载完成后开始渲染
-Promise.all([
-  InitLive2d.loadExternalResource(
-    `${live2dPublicPath}library/live2d.min.js', 'js`
-  ),
-  InitLive2d.loadExternalResource(`${live2dPublicPath}src/loader-dom.js`, 'js'),
-  InitLive2d.loadExternalResource(
-    `${live2dPublicPath}src/loader-model.js`,
-    'js'
-  ),
-  InitLive2d.loadExternalResource(`${live2dPublicPath}src/live2d.css`, 'css'),
-  InitLive2d.loadExternalResource(
-    `${live2dPublicPath}library/font-awesome/css/font-awesome.css`,
-    'css'
-  )
-]).then(async () => {
-  // 清理session
-  InitLive2d.clearSessionStorage()
-
-  // 初始化配置
-  await InitLive2d.initConfig()
-
-  // 渲染dom元素
-  RenderLive2dDom.renderDom()
-
-  // 渲染live2d模型
-  RenderLive2dModel.renderModel()
-
-  delete window.live2dPublicPath
-})
-
 // 将设置配置的方法暴露给全局
 function live2dSetConfig(config = {}) {
   window.live2dPublicPath = config.publicPath || './'
+
+  // 程序入口： 加载所有静态资源的依赖，加载完成后开始渲染
+  Promise.all([
+    InitLive2d.loadExternalResource(
+      `${live2dPublicPath}library/live2d.min.js', 'js`
+    ),
+    InitLive2d.loadExternalResource(
+      `${live2dPublicPath}src/loader-dom.js`,
+      'js'
+    ),
+    InitLive2d.loadExternalResource(
+      `${live2dPublicPath}src/loader-model.js`,
+      'js'
+    ),
+    InitLive2d.loadExternalResource(`${live2dPublicPath}src/live2d.css`, 'css'),
+    InitLive2d.loadExternalResource(
+      `${live2dPublicPath}library/font-awesome/css/font-awesome.css`,
+      'css'
+    )
+  ]).then(async () => {
+    // 清理session
+    InitLive2d.clearSessionStorage()
+
+    // 初始化配置
+    await InitLive2d.initConfig()
+
+    // 渲染dom元素
+    RenderLive2dDom.renderDom()
+
+    // 渲染live2d模型
+    RenderLive2dModel.renderModel()
+
+    delete window.live2dPublicPath
+  })
 
   if (!window.live2dPublicPath.endsWith('/')) {
     this.spryLive2dConfig.publicPath += '/'
