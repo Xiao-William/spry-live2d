@@ -483,6 +483,7 @@ function live2dSetConfig(config = {}) {
       $live2dPublicPath += '/'
     }
   }
+
   InitLive2d.setConfig(config)
 }
 

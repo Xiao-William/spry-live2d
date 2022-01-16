@@ -77,7 +77,6 @@ function SpryLive2dModel() {
   this.selectionNextModel = function () {
     const modelId = parseInt(localStorage.getItem('modelId'))
     const { modelList, useModelCdn } = InitLive2d.spryLive2dConfig
-    console.log(modelList.models.length)
 
     if (modelList.models.length === 1) {
       // 没有其他模型
@@ -128,7 +127,6 @@ function SpryLive2dModel() {
 
     let newTexturesId
 
-    console.log(models[modelId].length)
     if (!Array.isArray(models[modelId]) || models[modelId].length <= 1) {
       RenderLive2dDom.emitMessageTips(InitLive2d.MESSAGE_TYPE.NOT_TEXTURES)
       return
@@ -165,9 +163,6 @@ function SpryLive2dModel() {
       this.modelId = parseInt(localStorage.getItem('modelId'))
       this.texturesId = parseInt(localStorage.getItem('texturesId'))
       loadlive2d('live2d', loadPath)
-
-      console.log(InitLive2d.spryLive2dConfig)
-      console.log(this)
     }
   }
 
