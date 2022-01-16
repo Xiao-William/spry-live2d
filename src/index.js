@@ -155,11 +155,11 @@ function InitSpryLive2dConfig() {
 
   // 初始化入口函数
   this.initConfig = async function () {
-    // 生成样式配置
-    this.generateStyleConfig()
-
     // 处理额外的以及有问题的配置参数
     this.handleLive2dConfig()
+
+    // 生成样式配置
+    this.generateStyleConfig()
 
     // 加载json配置文件
     await this.loaderJsonConfig()
@@ -234,8 +234,31 @@ function InitSpryLive2dConfig() {
       mouseoverTips,
       modelApiPath,
       modelCdnPath,
-      publicPath
+      tipsStyle
     } = this.spryLive2dConfig
+
+    const mobileTipsStyle = Object.assign(
+      {
+        top: 0,
+        height: 80,
+        width: 200
+      },
+      tipsStyle.mobile
+    )
+
+    const pcTipsStyle = Object.assign(
+      {
+        top: 0,
+        height: 100,
+        width: 240
+      },
+      tipsStyle.pc
+    )
+
+    this.spryLive2dConfig.tipsStyle = {
+      mobile: mobileTipsStyle,
+      pc: pcTipsStyle
+    }
 
     this.spryLive2dConfig.useModelCdn = !!modelCdnPath
 
