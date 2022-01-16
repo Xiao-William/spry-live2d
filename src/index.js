@@ -318,20 +318,19 @@ function InitSpryLive2dConfig() {
     }
 
     // 处理cdn路径和api路径
-    if(this.spryLive2dConfig.useModelCdn){
+    if (this.spryLive2dConfig.useModelCdn) {
       if (!modelCdnPath.endsWith('/')) {
         this.spryLive2dConfig.modelCdnPath += '/'
       }
     }
- 
+
     if (!modelApiPath.endsWith('/')) {
       this.spryLive2dConfig.modelApiPath += '/'
     }
 
-    if(!publicPath.endsWith('/')){
-      this.spryLive2dConfig.publicPath +='/'
+    if (!publicPath.endsWith('/')) {
+      this.spryLive2dConfig.publicPath += '/'
     }
-    
   }
 
   // 加载其他相关的json配置文件，并初始化提示语
@@ -484,16 +483,26 @@ const InitLive2d = new InitSpryLive2dConfig()
 
 // 程序入口： 加载所有静态资源的依赖，加载完成后开始渲染
 Promise.all([
-  InitLive2d.loadExternalResource(`${this.spryLive2dConfig.publicPath}library/live2d.min.js', 'js`),
-  InitLive2d.loadExternalResource(`${this.spryLive2dConfig.publicPath}src/loader-dom.js`, 'js'),
-  InitLive2d.loadExternalResource(`${this.spryLive2dConfig.publicPath}src/loader-model.js`, 'js'),
-  InitLive2d.loadExternalResource(`${this.spryLive2dConfig.publicPath}src/live2d.css`, 'css'),
   InitLive2d.loadExternalResource(
-    `${this.spryLive2dConfig.publicPath}library/font-awesome/css/font-awesome.css`,
+    `${InitLive2d.spryLive2dConfig.publicPath}library/live2d.min.js', 'js`
+  ),
+  InitLive2d.loadExternalResource(
+    `${InitLive2d.spryLive2dConfig.publicPath}src/loader-dom.js`,
+    'js'
+  ),
+  InitLive2d.loadExternalResource(
+    `${InitLive2d.spryLive2dConfig.publicPath}src/loader-model.js`,
+    'js'
+  ),
+  InitLive2d.loadExternalResource(
+    `${InitLive2d.spryLive2dConfig.publicPath}src/live2d.css`,
+    'css'
+  ),
+  InitLive2d.loadExternalResource(
+    `${InitLive2d.spryLive2dConfig.publicPath}library/font-awesome/css/font-awesome.css`,
     'css'
   )
 ]).then(async () => {
-  console.log(window)
   // 清理session
   InitLive2d.clearSessionStorage()
 
@@ -505,8 +514,6 @@ Promise.all([
 
   // 渲染live2d模型
   RenderLive2dModel.renderModel()
-
-  console.log(InitLive2d)
 })
 
 // 将设置配置的方法暴露给全局
