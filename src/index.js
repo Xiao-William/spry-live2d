@@ -480,7 +480,7 @@ const InitLive2d = new InitSpryLive2dConfig()
 function live2dSetConfig(config = {}) {
   window.live2dPublicPath = config.publicPath || './'
   if (!window.live2dPublicPath.endsWith('/')) {
-    this.spryLive2dConfig.publicPath += '/'
+    window.live2dPublicPath += '/'
   }
   // 程序入口： 加载所有静态资源的依赖，加载完成后开始渲染
   Promise.all([
