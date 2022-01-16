@@ -410,6 +410,7 @@ function InitSpryLive2dConfig() {
 
   // 定义异步加载资源的方法
   this.loadExternalResource = function (url, type) {
+    console.log('loadExternalResource')
     return new Promise((resolve, reject) => {
       let tag
       if (type === 'css') {
@@ -476,31 +477,39 @@ function InitSpryLive2dConfig() {
 // 创建初始化实例
 const InitLive2d = new InitSpryLive2dConfig()
 
+let $live2dPublicPath = 'https://spry-live2d.tj520.top'
+
 // 将设置配置的方法暴露给全局
 function live2dSetConfig(config = {}) {
-  window.live2dPublicPath = config.publicPath || './'
-  if (!window.live2dPublicPath.endsWith('/')) {
-    window.live2dPublicPath += '/'
-  }
+  console.log(config)
+  InitLive2d.setConfig(config)
+}
+
+setTimeout(() => {
   // 程序入口： 加载所有静态资源的依赖，加载完成后开始渲染
   Promise.all([
     InitLive2d.loadExternalResource(
-      `${live2dPublicPath}library/live2d.min.js', 'js`
-    ),
-    InitLive2d.loadExternalResource(
-      `${live2dPublicPath}src/loader-dom.js`,
+      `${$live2dPublicPath}/library/live2d.min.js`,
       'js'
     ),
     InitLive2d.loadExternalResource(
-      `${live2dPublicPath}src/loader-model.js`,
+      `${$live2dPublicPath}/src/loader-dom.js`,
       'js'
     ),
-    InitLive2d.loadExternalResource(`${live2dPublicPath}src/live2d.css`, 'css'),
     InitLive2d.loadExternalResource(
-      `${live2dPublicPath}library/font-awesome/css/font-awesome.css`,
+      `${$live2dPublicPath}/src/loader-model.js`,
+      'js'
+    ),
+    InitLive2d.loadExternalResource(
+      `${$live2dPublicPath}/src/live2d.css`,
+      'css'
+    ),
+    InitLive2d.loadExternalResource(
+      `${$live2dPublicPath}/library/font-awesome/css/font-awesome.css`,
       'css'
     )
   ]).then(async () => {
+    console.log(live2dSetConfig.prototype.isSetting)
     // 清理session
     InitLive2d.clearSessionStorage()
 
@@ -512,9 +521,5 @@ function live2dSetConfig(config = {}) {
 
     // 渲染live2d模型
     RenderLive2dModel.renderModel()
-
-    delete window.live2dPublicPath
   })
-
-  InitLive2d.setConfig(config)
-}
+}, 10)
